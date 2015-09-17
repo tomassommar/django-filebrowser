@@ -118,7 +118,7 @@ class S3BotoStorageMixin(StorageMixin):
             formatted_name = '{}/'.format(name)
         else:
             formatted_name = name
-        key = self.bucket.get_key(formatted_name)
+        key = self.bucket.new_key(formatted_name)
         key.set_contents_from_string('')
 
     def rmtree(self, name):
