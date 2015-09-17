@@ -114,7 +114,12 @@ class S3BotoStorageMixin(StorageMixin):
         self.delete(old_file_name)
 
     def makedirs(self, name):
-        pass
+        if not name.endswith('/'):
+            formatted_name = '{}/'.format(name)
+        else:
+            formatted_name = name
+        key = self.bucket.get_key(formatted_name)
+        key.set_contents_from_string('')
 
     def rmtree(self, name):
         name = self._normalize_name(self._clean_name(name))
